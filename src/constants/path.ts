@@ -9,5 +9,6 @@ export const path = {
   manageTable: '/manage/tables',
   manageUser: '/manage/users',
   manageFood: '/manage/foods',
-  manageCategory: '/manage/categories'
+  manageCategory: '/manage/categories',
+  manageSettings: '/manage/settings'
 } as const

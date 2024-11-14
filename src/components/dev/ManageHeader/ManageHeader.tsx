@@ -6,7 +6,7 @@ import { LogOutIcon } from 'lucide-react'
 import { useContext } from 'react'
 
 export default function ManageHeader() {
-  const { reset } = useContext(AppContext)
+  const { reset, user } = useContext(AppContext)
   const handleLogout = () => {
     reset()
     clearLS()
@@ -16,7 +16,7 @@ export default function ManageHeader() {
       <div className='flex items-center space-x-4'>
         <LogOutIcon onClick={handleLogout} className='cursor-pointer size-5' />
         <ModeToggle />
-        <AvatarCustom />
+        <AvatarCustom url={user?.avatar} />
       </div>
     </header>
   )

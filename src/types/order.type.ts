@@ -1,10 +1,10 @@
 import { Product } from '@/types/product.type'
+import { User } from '@/types/user.type'
 
 export interface OrderRequest {
   table_number: number | string
   customer_name: string
   customer_id: string
-  assignee?: string
   products: { id: string; buy_count: number }[]
 }
 
@@ -15,7 +15,7 @@ export interface Order {
   table_number: number
   customer_name: string
   customer_id: string
-  assignee?: string
+  assignee?: User
   product: Product
   buy_count: number
   status: OrderStatusType
@@ -36,6 +36,7 @@ export interface OrderUpdateRequest {
   product_id?: string
   buy_count?: string
   status?: string
+  assignee?: string
 }
 
 export interface TableStatistic {

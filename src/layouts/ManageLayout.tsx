@@ -1,8 +1,10 @@
 import ManageHeader from '@/components/dev/ManageHeader'
+import { TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { path } from '@/constants/path'
 import { AppContext } from '@/contexts/app.context'
+import { Tooltip } from '@radix-ui/react-tooltip'
 import clsx from 'clsx'
-import { Cookie, Layers3Icon, ShoppingCartIcon, TableIcon, User } from 'lucide-react'
+import { Cookie, Layers3Icon, SettingsIcon, ShoppingCartIcon, TableIcon, User } from 'lucide-react'
 import { useContext } from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
 
@@ -10,29 +12,40 @@ export default function ManageLayout() {
   const { user } = useContext(AppContext)
   const navData = [
     {
-      icon: <ShoppingCartIcon />,
+      icon: <ShoppingCartIcon strokeWidth={1.5} />,
       path: path.manageOrder,
-      canShow: true
+      canShow: true,
+      tooltip: 'Đơn hàng'
     },
     {
-      icon: <TableIcon />,
+      icon: <TableIcon strokeWidth={1.5} />,
       path: path.manageTable,
-      canShow: user?.role === 'ADMIN'
+      canShow: user?.role === 'ADMIN',
+      tooltip: 'Bàn ăn'
     },
     {
-      icon: <Layers3Icon />,
+      icon: <Layers3Icon strokeWidth={1.5} />,
       path: path.manageCategory,
-      canShow: user?.role === 'ADMIN'
+      canShow: user?.role === 'ADMIN',
+      tooltip: 'Danh mục'
     },
     {
-      icon: <Cookie />,
+      icon: <Cookie strokeWidth={1.5} />,
       path: path.manageFood,
-      canShow: user?.role === 'ADMIN'
+      canShow: user?.role === 'ADMIN',
+      tooltip: 'Sản phẩm'
     },
     {
-      icon: <User />,
+      icon: <User strokeWidth={1.5} />,
       path: path.manageUser,
-      canShow: user?.role === 'ADMIN'
+      canShow: user?.role === 'ADMIN',
+      tooltip: 'Người dùng'
+    },
+    {
+      icon: <SettingsIcon strokeWidth={1.5} />,
+      path: path.manageSettings,
+      canShow: true,
+      tooltip: 'Cài đặt'
     }
   ]
   return (
@@ -51,7 +64,12 @@ export default function ManageLayout() {
                 })
               }
             >
-              {item.icon}
+              <Tooltip>
+                <TooltipProvider>
+                  <TooltipTrigger>{item.icon}</TooltipTrigger>
+                  <TooltipContent>{item.tooltip}</TooltipContent>
+                </TooltipProvider>
+              </Tooltip>
             </NavLink>
           ))}
         </div>

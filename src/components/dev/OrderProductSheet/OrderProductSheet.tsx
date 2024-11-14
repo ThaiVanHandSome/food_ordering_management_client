@@ -69,8 +69,8 @@ export default function OrderProductSheet() {
           className='relative inline-flex items-center justify-center w-12 h-12 rounded-full text-foreground cursor-pointer hover:bg-muted transition-all duration-300 ease-in-out'
           onClick={() => setOpenSheet(true)}
         >
-          <ShoppingCartIcon className='w-6 h-6' />
-          <div className='absolute -top-2 -right-2 flex items-center justify-center w-6 h-6 bg-red-600 text-white font-bold rounded-full shadow-lg'>
+          <ShoppingCartIcon className='w-5 h-5' />
+          <div className='absolute top-0 right-0 text-xs flex items-center justify-center w-5 h-5 bg-red-600 text-white font-bold rounded-full shadow-lg'>
             {productOrders?.length ?? 0}
           </div>
         </div>

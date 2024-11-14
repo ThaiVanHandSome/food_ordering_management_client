@@ -14,3 +14,14 @@ export interface UserRequest {
   password?: string
   role: string
 }
+
+export interface MeRequest {
+  name: string
+  avatar: string
+}
+
+export interface ChangePassword {
+  oldPassword: string
+  newPassword: string
+  confirmPassword: string
+}

@@ -21,7 +21,8 @@ export const updateOrder = (params: OrderUpdateRequest) =>
   http.patch(`orders/${params.order_id}`, {
     product_id: params.product_id,
     buy_count: params.buy_count,
-    status: params.status
+    status: params.status,
+    assignee: params.assignee
   })
 
 export const deleteOrder = (id: string) => http.delete<SuccessResponse<string>>(`orders/${id}`)

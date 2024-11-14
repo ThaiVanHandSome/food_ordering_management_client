@@ -16,7 +16,8 @@ export default function Header() {
   const navData = [
     { id: 1, title: 'Trang chủ', to: path.home, canAppear: true },
     { id: 2, title: 'Thực đơn', to: path.menu, canAppear: true },
-    { id: 3, title: 'Đơn hàng', to: path.myOrder, canAppear: !!tableNumber && !!customerName }
+    { id: 3, title: 'Đơn hàng', to: path.myOrder, canAppear: !!tableNumber && !!customerName },
+    { id: 4, title: 'Đăng nhập', to: path.login, canAppear: !tableNumber && !customerName }
   ]
 
   const navigate = useNavigate()
@@ -41,7 +42,7 @@ export default function Header() {
                       to={navItem.to}
                       className={({ isActive }) =>
                         clsx('mx-2 text-md font-semibold hover:text-primary transition-colors', {
-                          'text-primary': isActive
+                          'text-red-500': isActive
                         })
                       }
                     >
@@ -65,11 +66,15 @@ export default function Header() {
                     Nếu bạn đăng xuất, bạn sẽ không còn được xem các trạng thái đơn hàng hiện tại của mình nữa, nhưng
                     nhà hàng vẫn sẽ phục vụ những món bạn đã đặt!
                   </p>
-                  <div className='flex justify-around'>
-                    <Button onClick={handleLogout}>Đăng xuất</Button>
-                    <Button onClick={() => setIsOpen(false)} className='bg-gray-400 text-white hover:bg-gray-500'>
-                      Hủy
-                    </Button>
+                  <div className='flex items-center justify-center'>
+                    <div className='flex items-center space-x-2'>
+                      <Button variant='destructive' onClick={handleLogout}>
+                        Đăng xuất
+                      </Button>
+                      <Button onClick={() => setIsOpen(false)} className='bg-gray-400 text-white hover:bg-gray-500'>
+                        Hủy
+                      </Button>
+                    </div>
                   </div>
                 </DialogContent>
               </Dialog>
@@ -77,7 +82,7 @@ export default function Header() {
           </div>
         </div>
       </div>
-      <div className='flex items-center space-x-4'>
+      <div className='flex items-center space-x-2'>
         <ModeToggle />
         <OrderProductSheet />
         <div className='lg:hidden'>
@@ -95,7 +100,7 @@ export default function Header() {
                           to={navItem.to}
                           className={({ isActive }) =>
                             clsx('block my-2 px-2 py-2 text-md font-semibold hover:text-primary transition-colors', {
-                              'text-primary': isActive
+                              'text-red-500': isActive
                             })
                           }
                         >

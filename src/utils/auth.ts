@@ -5,6 +5,7 @@ export const AuthenticationTarget = new EventTarget()
 export const clearLS = () => {
   localStorage.removeItem('fd_accessToken')
   localStorage.removeItem('fd_refreshToken')
+  localStorage.removeItem('fd_user')
   const clearLSEvent = new Event('clearLS')
   AuthenticationTarget.dispatchEvent(clearLSEvent)
 }

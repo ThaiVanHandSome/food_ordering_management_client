@@ -11,7 +11,7 @@ interface Props {
 
 export default function TableDataTable({ tables }: Props) {
   return (
-    <Table>
+    <Table className='font-semibold'>
       <TableHeader>
         <TableRow>
           <TableHead>Số bàn</TableHead>

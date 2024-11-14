@@ -11,6 +11,7 @@ import ManageTable from '@/pages/Manage/ManageTable'
 import ManageUser from '@/pages/Manage/ManageUser'
 import Menu from '@/pages/Menu'
 import MyOrder from '@/pages/MyOrder'
+import Setting from '@/pages/Setting'
 import Table from '@/pages/Table'
 import { useContext } from 'react'
 import { Navigate, Outlet, useRoutes } from 'react-router-dom'
@@ -81,6 +82,10 @@ export default function useRouteElement() {
               element: <ManageOrder />
             },
             {
+              path: path.manageSettings,
+              element: <Setting />
+            },
+            {
               path: '',
               element: <AdminProtectedRoute />,
               children: [
@@ -112,7 +117,11 @@ export default function useRouteElement() {
       children: [
         {
           path: path.login,
-          element: <Login />
+          element: (
+            <MainLayout>
+              <Login />
+            </MainLayout>
+          )
         }
       ]
     }
