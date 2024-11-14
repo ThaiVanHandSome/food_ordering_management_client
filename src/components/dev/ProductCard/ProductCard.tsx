@@ -83,6 +83,8 @@ export default function ProductCard({ product, isBestSeller = false }: Props) {
             <h3 className='text-lg font-semibold mb-1'>{product.name}</h3>
             <h3 className='text-sm font-semibold mb-2 truncate'>{product.description}</h3>
             <p className='text-xl font-bold text-red-700 mb-2'>{formatCurrency(product.price)}đ</p>
+            <p className='text-sm font-semibold'>Số lượng đã bán: {product.sold}</p>
+            <p className='text-sm font-semibold'>Số lượt xem: {product.view}</p>
             {canOrder && (
               <Button className='w-full' onClick={handleAddProductToCart}>
                 <ShoppingCartIcon className='size-5 mr-2' />
