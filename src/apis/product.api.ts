@@ -21,3 +21,5 @@ export const updateProduct = (id: string, body: ProductRequest) =>
       'Content-Type': 'multipart/form-data'
     }
   })
+
+export const increaseView = (id: string) => http.patch<SuccessResponse<string>>(`products/${id}/increase-view`)
