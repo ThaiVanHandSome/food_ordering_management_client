@@ -112,7 +112,7 @@ export default function DialogTable({ table }: Props) {
     }
   ]
 
-  const url = `http://localhost:3000/table/${form.watch('tableNumber')}?token=${form.watch('token')}`
+  const url = `http://localhost:3001/table/${form.watch('tableNumber')}?token=${form.watch('token')}`
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
