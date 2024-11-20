@@ -2,6 +2,7 @@ import { deleteTable } from '@/apis/table.api'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
 import { toast } from '@/hooks/use-toast'
+import useTableQueryConfig from '@/hooks/useTableQueryConfig'
 import { TrashIcon } from '@radix-ui/react-icons'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
@@ -11,6 +12,7 @@ interface Props {
 }
 
 export default function DialogDeleteTable({ table_id }: Props) {
+  const tableQueryConfig = useTableQueryConfig()
   const queryClient = useQueryClient()
   const [open, setOpen] = useState<boolean>(false)
 
@@ -25,7 +27,7 @@ export default function DialogDeleteTable({ table_id }: Props) {
           description: res.data.message
         })
         queryClient.invalidateQueries({
-          queryKey: ['tables']
+          queryKey: ['tables', tableQueryConfig]
         })
         setOpen(false)
       }

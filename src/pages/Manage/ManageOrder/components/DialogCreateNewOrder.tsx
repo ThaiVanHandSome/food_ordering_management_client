@@ -7,6 +7,7 @@ import { Form } from '@/components/ui/form'
 import { Label } from '@/components/ui/label'
 import { Separator } from '@/components/ui/separator'
 import { Switch } from '@/components/ui/switch'
+import { AppContext } from '@/contexts/app.context'
 import { toast } from '@/hooks/use-toast'
 import DialogChooseProduct from '@/pages/Manage/ManageOrder/components/DialogChooseProduct'
 import { Customer, OrderRequest } from '@/types/order.type'
@@ -15,7 +16,7 @@ import { formatCurrency, generateShortUUID } from '@/utils/utils'
 import { PlusIcon } from '@radix-ui/react-icons'
 import { useMutation } from '@tanstack/react-query'
 import { produce } from 'immer'
-import { useMemo, useState } from 'react'
+import { useContext, useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 interface ProductPurchase {
@@ -24,6 +25,7 @@ interface ProductPurchase {
 }
 
 export default function DialogCreateNewOrder() {
+  const { user } = useContext(AppContext)
   const [open, setOpen] = useState<boolean>(false)
   const [isNewCustomer, setIsNewCustomer] = useState<boolean>(false)
   const [productsChoosen, setProductsChoosen] = useState<ProductPurchase[]>([])
@@ -39,11 +41,16 @@ export default function DialogCreateNewOrder() {
   const handleAddProduct = (product: Product) => {
     setProductsChoosen((prev) =>
       produce(prev, (draft: ProductPurchase[]) => {
-        const newProduct: ProductPurchase = {
-          product,
-          buyCount: 1
+        const existProduct = draft?.find((obj) => obj.product._id === product._id)
+        if (existProduct) {
+          existProduct.buyCount += 1
+        } else {
+          const newProduct: ProductPurchase = {
+            product,
+            buyCount: 1
+          }
+          draft.push(newProduct)
         }
-        draft.push(newProduct)
       })
     )
   }
@@ -96,7 +103,7 @@ export default function DialogCreateNewOrder() {
       table_number: (isNewCustomer ? tableNumber : customer?.table_number) as string,
       customer_id: (isNewCustomer ? generateShortUUID(5) : customer?.customer_id) as string,
       customer_name: (isNewCustomer ? customerName : customer?.customer_name) as string,
-      assignee: '',
+      assignee: user?._id as string,
       products: productsPayload
     }
     addOrderMutation.mutate(payload, {

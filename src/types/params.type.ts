@@ -15,3 +15,9 @@ export interface UserListConfig {
   limit?: number
   email?: string
 }
+
+export interface TableListConfig {
+  page?: number
+  limit?: number
+  tableNumber?: number
+}

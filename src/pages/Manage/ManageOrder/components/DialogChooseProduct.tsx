@@ -53,7 +53,7 @@ export default function DialogChooseProduct({ setProduct, isUpdate = true }: Pro
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
-        <Button className='w-full max-w-full' type='button'>
+        <Button className='w-full max-w-full' type='button' variant='secondary'>
           {isUpdate ? 'Thay đổi' : 'Chọn món'}
         </Button>
       </DialogTrigger>

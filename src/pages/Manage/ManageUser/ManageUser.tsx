@@ -76,6 +76,7 @@ export default function ManageUser() {
               <TableHead>Email</TableHead>
               <TableHead>Password</TableHead>
               <TableHead>Role</TableHead>
+              <TableHead>Tình trạng</TableHead>
               <TableHead>Action</TableHead>
             </TableRow>
           </TableHeader>
@@ -90,6 +91,7 @@ export default function ManageUser() {
                 <TableCell>{user.email}</TableCell>
                 <TableCell>{user.password}</TableCell>
                 <TableCell>{user.role}</TableCell>
+                <TableCell>{user.isActive ? 'Sử dụng' : 'Đã khóa'}</TableCell>
                 <TableCell>
                   <DialogUser user={user} />
                 </TableCell>

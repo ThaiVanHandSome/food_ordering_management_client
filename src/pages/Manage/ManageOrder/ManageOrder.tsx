@@ -16,10 +16,11 @@ import { OrderStatusType } from '@/types/order.type'
 import { useQuery } from '@tanstack/react-query'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { createSearchParams, useNavigate } from 'react-router-dom'
+import { createSearchParams, URLSearchParamsInit, useNavigate } from 'react-router-dom'
 import PaginationCustom from '@/components/dev/PaginationCustom'
 import { io } from 'socket.io-client'
 import { toast } from '@/hooks/use-toast'
+import { isUndefined, omitBy } from 'lodash'
 
 export default function ManageOrder() {
   const orderQueryConfig = useOrderQueryConfig()
@@ -95,6 +96,22 @@ export default function ManageOrder() {
       }).toString()
     })
   }, [status])
+
+  useEffect(() => {
+    navigate({
+      pathname: path.manageOrder,
+      search: createSearchParams(
+        omitBy(
+          {
+            ...orderQueryConfig,
+            startDate,
+            endDate
+          },
+          isUndefined
+        ) as unknown as URLSearchParamsInit | undefined
+      ).toString()
+    })
+  }, [startDate, endDate])
 
   const socket = io('http://localhost:8080')
   socket.on('connect', () => {

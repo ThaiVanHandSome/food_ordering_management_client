@@ -66,7 +66,7 @@ class HTTP {
             description: message
           })
         }
-        if (error.status === HttpStatusCode.Unauthorized && data?.type === 'EXPIRE_TOKEN') {
+        if (error.status === HttpStatusCode.Unauthorized && data?.data.name === 'EXPIRED_TOKEN') {
           const config = error.response?.config || ({ headers: {} } as InternalAxiosRequestConfig)
           const { url } = config
           if (url !== URL_REFRESH_TOKEN) {
@@ -94,11 +94,11 @@ class HTTP {
         refreshToken: this.refresh_token
       })
       .then((res) => {
-        const { accessToken, refreshToken } = res.data.data
+        const { accessToken } = res.data.data
         setAccessTokenToLocalStorage(accessToken)
-        setRefreshTokenToLocalStorage(refreshToken)
+        // setRefreshTokenToLocalStorage(refreshToken)
         this.access_token = accessToken
-        this.refresh_token = refreshToken
+        // this.refresh_token = refreshToken
         return accessToken
       })
       .catch((error) => {

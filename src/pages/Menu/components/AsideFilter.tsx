@@ -92,6 +92,9 @@ export default function AsideFilter({ queryConfig }: Props) {
           </form>
         </Form>
       </div>
+      <Link to={path.menu}>
+        <Button className='w-full mt-3'>Reset</Button>
+      </Link>
     </div>
   )
 }

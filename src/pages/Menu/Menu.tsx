@@ -35,7 +35,11 @@ const selectionOrderData = [
 type FormData = yup.InferType<typeof FilterSchema>
 
 export default function Menu() {
-  const queryConfig = useQueryConfig()
+  let queryConfig = useQueryConfig()
+  queryConfig = {
+    ...queryConfig,
+    status: 'AVAILABLE'
+  }
 
   const form = useForm<FormData>({
     defaultValues: {

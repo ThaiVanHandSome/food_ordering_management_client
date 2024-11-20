@@ -3,13 +3,12 @@ import * as yup from 'yup'
 function testPriceMin(this: yup.TestContext<yup.AnyObject>) {
   const { priceMin, priceMax } = this.parent
 
-  if (priceMin === '' || priceMin === undefined) {
-    return true
-  }
-
   const maxValue = Number(priceMax)
 
   if (priceMin !== '' && priceMin !== undefined) {
+    if (priceMax === '' || priceMax === undefined) {
+      return true
+    }
     const minValue = Number(priceMin)
     return !isNaN(maxValue) && maxValue >= minValue
   }
@@ -27,6 +26,9 @@ function testPriceMax(this: yup.TestContext<yup.AnyObject>) {
   const maxValue = Number(priceMax)
 
   if (priceMin !== '' && priceMin !== undefined) {
+    if (priceMin === '' || priceMin === undefined) {
+      return true
+    }
     const minValue = Number(priceMin)
     return !isNaN(maxValue) && maxValue >= minValue
   }
@@ -75,6 +77,7 @@ export const UserSchema = yup.object({
   name: yup.string().required('Bạn phải nhập tên'),
   email: yup.string().required('Bạn phải nhập email').email(),
   role: yup.string().required('Bạn phải chọn role'),
+  isActive: yup.string().required('Bạn phải chọn tình trạng tài khoản'),
   password: yup.string().required('Bạn phải nhập mật khẩu')
 })
 

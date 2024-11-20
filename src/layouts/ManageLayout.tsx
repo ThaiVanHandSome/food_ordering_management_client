@@ -10,6 +10,8 @@ import { NavLink, Outlet } from 'react-router-dom'
 
 export default function ManageLayout() {
   const { user } = useContext(AppContext)
+  console.log(user)
+
   const navData = [
     {
       icon: <ShoppingCartIcon strokeWidth={1.5} />,
@@ -64,12 +66,12 @@ export default function ManageLayout() {
                 })
               }
             >
-              <Tooltip>
-                <TooltipProvider>
+              <TooltipProvider>
+                <Tooltip>
                   <TooltipTrigger>{item.icon}</TooltipTrigger>
                   <TooltipContent>{item.tooltip}</TooltipContent>
-                </TooltipProvider>
-              </Tooltip>
+                </Tooltip>
+              </TooltipProvider>
             </NavLink>
           ))}
         </div>

@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { Form } from '@/components/ui/form'
 import { toast } from '@/hooks/use-toast'
+import useTableQueryConfig from '@/hooks/useTableQueryConfig'
 import { Table, TableRequest } from '@/types/table.type'
 import { AddTableSchema } from '@/utils/rules'
 import { generateQRCode, generateTableToken } from '@/utils/utils'
@@ -23,6 +24,7 @@ interface Props {
 }
 
 export default function DialogTable({ table }: Props) {
+  const tableQueryConfig = useTableQueryConfig()
   const isUpdate = !!table
   const queryClient = useQueryClient()
   const [open, setOpen] = useState<boolean>(false)
@@ -46,7 +48,7 @@ export default function DialogTable({ table }: Props) {
       description: message
     })
     queryClient.invalidateQueries({
-      queryKey: ['tables']
+      queryKey: ['tables', tableQueryConfig]
     })
     setOpen(false)
     form.reset({

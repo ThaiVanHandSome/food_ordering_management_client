@@ -21,7 +21,8 @@ export default function ProductCard({ product, isBestSeller = false }: Props) {
   const [open, setOpen] = useState<boolean>(false)
   const canOrder = !!tableNumber
 
-  const handleAddProductToCart = () => {
+  const handleAddProductToCart = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.stopPropagation()
     setProductOrders((prev) =>
       produce(prev, (draft: ProductOrder[]) => {
         const existProduct = draft?.find((obj) => obj.product._id === product._id)
@@ -64,7 +65,7 @@ export default function ProductCard({ product, isBestSeller = false }: Props) {
             <h3 className='text-sm font-semibold mb-2 truncate'>{product.description}</h3>
             <p className='text-xl font-bold text-red-700 mb-2'>{formatCurrency(product.price)}đ</p>
             {canOrder && (
-              <Button className='w-full' onClick={handleAddProductToCart}>
+              <Button className='w-full' onClick={(e) => handleAddProductToCart(e)}>
                 <ShoppingCartIcon className='size-5 mr-2' />
                 <span>Thêm vào giỏ</span>
               </Button>
@@ -86,7 +87,7 @@ export default function ProductCard({ product, isBestSeller = false }: Props) {
             <p className='text-sm font-semibold'>Số lượng đã bán: {product.sold}</p>
             <p className='text-sm font-semibold'>Số lượt xem: {product.view}</p>
             {canOrder && (
-              <Button className='w-full' onClick={handleAddProductToCart}>
+              <Button className='w-full mt-2' onClick={handleAddProductToCart}>
                 <ShoppingCartIcon className='size-5 mr-2' />
                 <span>Thêm vào giỏ</span>
               </Button>

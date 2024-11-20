@@ -6,6 +6,7 @@ export interface OrderRequest {
   customer_name: string
   customer_id: string
   products: { id: string; buy_count: number }[]
+  assignee: string
 }
 
 export type OrderStatusType = 'IN_PROGRESS' | 'COOKING' | 'REJECTED' | 'SERVED' | 'PAID'
@@ -29,6 +30,8 @@ export interface OrderListConfig {
   tableNumber?: number
   customerName?: string
   status?: string
+  startDate?: string
+  endDate?: string
 }
 
 export interface OrderUpdateRequest {

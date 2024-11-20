@@ -1,3 +1,4 @@
+import { leaveTable } from '@/apis/table.api'
 import ModeToggle from '@/components/dev/ModeToggle'
 import OrderProductSheet from '@/components/dev/OrderProductSheet'
 import { Button } from '@/components/ui/button'
@@ -5,6 +6,8 @@ import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import { path } from '@/constants/path'
 import { AppContext } from '@/contexts/app.context'
+import { toast } from '@/hooks/use-toast'
+import { useMutation } from '@tanstack/react-query'
 import clsx from 'clsx'
 import { AlignJustifyIcon, ChefHat } from 'lucide-react'
 import { useContext, useState } from 'react'
@@ -20,10 +23,21 @@ export default function Header() {
     { id: 4, title: 'Đăng nhập', to: path.login, canAppear: !tableNumber && !customerName }
   ]
 
+  const customerLogoutMutation = useMutation({
+    mutationFn: (table_number: number) => leaveTable(table_number)
+  })
+
   const navigate = useNavigate()
   const handleLogout = () => {
-    resetUser()
-    navigate(path.home)
+    customerLogoutMutation.mutate(parseInt(tableNumber), {
+      onSuccess: (res) => {
+        toast({
+          description: res.data.message
+        })
+        resetUser()
+        navigate(path.home)
+      }
+    })
   }
 
   return (

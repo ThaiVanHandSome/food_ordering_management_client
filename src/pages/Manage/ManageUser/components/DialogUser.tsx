@@ -1,4 +1,3 @@
-
 import { createUser, updateUser } from '@/apis/user.api'
 import InputCustom from '@/components/dev/Form/InputCustom'
 import SelectionCustom from '@/components/dev/Form/SelectionCustom'
@@ -40,6 +39,7 @@ export default function DialogUser({ user }: Props) {
       name: user?.name ?? '',
       email: user?.email ?? '',
       role: user?.role ?? '',
+      isActive: String(user?.isActive ?? ''),
       password: ''
     }
   })
@@ -60,6 +60,17 @@ export default function DialogUser({ user }: Props) {
     }
   ]
 
+  const statusSelectionData: FormControlItem[] = [
+    {
+      value: 'true',
+      label: 'Sử dụng'
+    },
+    {
+      value: 'false',
+      label: 'Đã khóa'
+    }
+  ]
+
   const createUserMutation = useMutation({
     mutationFn: (body: UserRequest) => createUser(body)
   })
@@ -74,6 +85,7 @@ export default function DialogUser({ user }: Props) {
         name: values.name,
         email: values.email,
         role: values.role,
+        isActive: values.isActive === 'true' ? true : false,
         password: values.password,
         avatar: file as File
       }).filter(([, value]) => value !== undefined && value !== null && value !== '' && !Number.isNaN(value))
@@ -157,6 +169,19 @@ export default function DialogUser({ user }: Props) {
                 </div>
                 <div className='col-span-3'>
                   <SelectionCustom control={form.control} name='role' data={roleSelectionData} placeholder='Role' />
+                </div>
+              </div>
+              <div className='grid grid-cols-4 gap-2 mt-3'>
+                <div className='col-span-1'>
+                  <FormLabel>Tình trạng</FormLabel>
+                </div>
+                <div className='col-span-3'>
+                  <SelectionCustom
+                    control={form.control}
+                    name='isActive'
+                    data={statusSelectionData}
+                    placeholder='Tình trạng'
+                  />
                 </div>
               </div>
               {isUpdate && (

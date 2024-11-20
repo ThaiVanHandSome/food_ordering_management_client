@@ -11,10 +11,12 @@ export default function useOrderQueryConfig() {
   const orderQueryConfig = omitBy(
     {
       page: queryParams.page ?? '1',
-      limit: queryParams.limit ?? '6',
+      limit: queryParams.limit ?? '8',
       customer_name: queryParams.customerName,
       table_number: queryParams.tableNumber,
-      status: queryParams.status
+      status: queryParams.status,
+      startDate: queryParams.startDate,
+      endDate: queryParams.endDate
     },
     isUndefined
   )

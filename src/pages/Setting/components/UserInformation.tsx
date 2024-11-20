@@ -3,12 +3,14 @@ import AvatarCustom from '@/components/dev/AvatarCustom'
 import InputCustom from '@/components/dev/Form/InputCustom'
 import { Button } from '@/components/ui/button'
 import { Form } from '@/components/ui/form'
+import { AppContext } from '@/contexts/app.context'
 import { toast } from '@/hooks/use-toast'
 import { MeRequest, User } from '@/types/user.type'
+import { setUserToLocalStorage } from '@/utils/auth'
 import { UserInformationSchema } from '@/utils/rules'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { useMemo, useRef, useState } from 'react'
+import { useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
@@ -19,6 +21,8 @@ interface Props {
 }
 
 export default function UserInformation({ me }: Props) {
+  console.log(me)
+  const { setUser } = useContext(AppContext)
   const queryClient = useQueryClient()
   const [file, setFile] = useState<File>()
   const fileRef = useRef<HTMLInputElement | null>(null)
@@ -49,6 +53,8 @@ export default function UserInformation({ me }: Props) {
         toast({
           description: res.data.message
         })
+        setUser(res.data.data)
+        setUserToLocalStorage(res.data.data)
         queryClient.invalidateQueries({
           queryKey: ['me']
         })
@@ -60,6 +66,12 @@ export default function UserInformation({ me }: Props) {
     const fileFromLocal = event.target.files?.[0]
     setFile(fileFromLocal)
   }
+
+  useEffect(() => {
+    if (me) {
+      form.setValue('name', me?.name as string)
+    }
+  }, [me])
 
   return (
     <div className='px-4 py-2 rounded-lg shadow-lg space-y-2'>
